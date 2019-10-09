@@ -130,11 +130,50 @@ char sign_select(void)
     }
     return signs[signs_index];
 }
-
+char round_result (char p1_sign, char p2_sign)
+{
+    if (p1_sign == p2_sign) {
+        return 'D';
+    } else if (p1_sign == 'P' && p2_sign == 'R') {
+        return 'W';
+    } else if (p1_sign == 'R' && p2_sign == 'S') {
+        return 'W';
+    } else if (p1_sign == 'S' && p2_sign == 'P') {
+        return 'W';
+    } else {
+        return 'L';
+    }
+}
 void round_task(void)
 {
-    char sign = sign_select();
-    display_character(sign);
+    char p1_sign = sign_select();
+    char p2_sign = 'P';
+
+    uint8_t cont = 0;
+    uint8_t sent = 0;
+    uint8_t recvd = 0;
+
+    while (!cont) {
+        pacer_wait();
+        if (!sent) {
+            ir_uart_putc(p1_sign);
+            sent = 1;
+        }
+        if (ir_uart_read_ready_p()) {
+            p2_sign = ir_uart_getc();
+            recvd = 1;
+        }
+        if (sent && recvd) {
+            cont = 1;
+        }
+    }
+    char result = round_result(p1_sign, p2_sign);
+    display_character(result);
+
+    while(1) {
+        pacer_wait();
+        tinygl_update();
+    }
 }
 
 /** Displays the welcome message for the game, including instructions
