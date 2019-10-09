@@ -4,18 +4,11 @@
 #include "ir_uart.h"
 #include "tinygl.h"
 #include "../fonts/font5x7_1.h"
-#include "score.h"
 
 #define PACER_RATE 500
 #define MESSAGE_RATE 20
 
 /* Commonly used helper functions */
-void ir_comms (char input)
-{
-    if (input == 'Y' || input == 'N') {
-        ready_check()
-    }
-}
 
 void display_character(char character)
 {
@@ -126,13 +119,11 @@ int main (void)
 {
     system_init();
     startup_task();
-
+    ready_screen();
     while (1) {
-        /* Paced loop here for game operation? */
+        pacer_wait();
+        tinygl_clear();
     }
-
-    tinygl_clear();
-    tinygl_update ();
 
     return 0;
 }
