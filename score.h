@@ -7,6 +7,9 @@
 #ifndef SCORE_H
 #define SCORE_H
 
+uint8_t p1_score;
+uint8_t p2_score;
+
 /** Initialise player scores for both players */
 void score_init(void);
 
