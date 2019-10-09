@@ -7,6 +7,13 @@
 #ifndef SCORE_H
 #define SCORE_H
 
+/** Initialise player scores for both players */
+void score_init(void);
 
-#include "button.h"
-#include "led.h"
+/**  Increments the score of player */
+void increment_score (uint8_t player);
+
+/** Displays the score of both the players while the button is pressed */
+void display_score (void);
+
+#endif /* SCORE_H */
