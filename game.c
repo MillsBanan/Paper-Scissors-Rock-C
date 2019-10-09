@@ -15,7 +15,7 @@ void display_character(char character)
     char buffer[2];
     buffer[0] = character;
     buffer[1] = '\0';
-    tinygl_text (buffer);
+    tinygl_text(buffer);
 }
 
 /** Helper functions for startup_task() */
@@ -55,9 +55,9 @@ int ready_screen(void)
 
     while (!cont) {
 
-        pacer_wait ();
-        tinygl_update ();
-        navswitch_update ();
+        pacer_wait();
+        tinygl_update();
+        navswitch_update();
 
         if (navswitch_push_event_p (NAVSWITCH_EAST) || navswitch_push_event_p (NAVSWITCH_WEST)) {
             if (character == 'Y') {
@@ -76,8 +76,8 @@ int ready_screen(void)
             }
         }
 
-        if (ir_uart_read_ready_p ()) {
-            player2_char = ir_uart_getc ();
+        if (ir_uart_read_ready_p()) {
+            player2_char = ir_uart_getc();
             if (player2_char == 'Y') {
                 rdy2 = 1;
             } else {
@@ -94,24 +94,59 @@ int ready_screen(void)
     return 0;
 }
 
-void round_task (void)
+char sign_select(void)
 {
-    /* TODO - select P, S or R */
+    uint8_t signs_index = 0;
+    uint8_t cont = 0;
+    char signs[3] = {'P', 'S', 'R'};
 
-    /*TODO - Communicate choice to other device and await response */
+    display_character(signs[signs_index]);
 
+    while (!cont) {
+
+        pacer_wait();
+        tinygl_update();
+        navswitch_update();
+
+        if (navswitch_push_event_p(NAVSWITCH_EAST)) {
+            if (signs_index == 2) {
+                signs_index = 0;
+            } else {
+                signs_index++;
+            }
+        } else if (navswitch_push_event_p(NAVSWITCH_WEST)) {
+            if (signs_index == 0) {
+                signs_index = 2;
+            } else {
+                signs_index--;
+            }
+        }
+
+        if (navswitch_push_event_p(NAVSWITCH_PUSH)) {
+            cont = 1;
+        }
+
+        display_character(signs[signs_index]);
+    }
+    return signs[signs_index];
+}
+
+void round_task(void)
+{
+    char sign = sign_select();
+    display_character(sign);
 }
 
 /** Displays the welcome message for the game, including instructions
     Then waits for a connection to a second player. */
 void startup_task(void)
 {
-    tinygl_init (PACER_RATE);
-    tinygl_font_set (&font5x7_1);
-    tinygl_text_speed_set (MESSAGE_RATE);
-    tinygl_text_mode_set (TINYGL_TEXT_MODE_SCROLL);
+    tinygl_init(PACER_RATE);
+    tinygl_font_set(&font5x7_1);
+    tinygl_text_speed_set(MESSAGE_RATE);
+    tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL);
     pacer_init(PACER_RATE);
-    ir_uart_init ();
+    ir_uart_init();
     startup_screen();
 }
 
@@ -120,9 +155,11 @@ int main (void)
     system_init();
     startup_task();
     ready_screen();
+    round_task();
     while (1) {
         pacer_wait();
         tinygl_clear();
+
     }
 
     return 0;
