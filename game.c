@@ -10,6 +10,12 @@
 #define MESSAGE_RATE 20
 
 /* Commonly used helper functions */
+void ir_comms (char input)
+{
+    if (input == 'Y' || input == 'N') {
+        ready_check()
+    }
+}
 
 void display_character(char character)
 {
@@ -46,7 +52,7 @@ void startup_screen(void)
   Returns 1 if both players are ready. */
 int ready_screen(void)
 {
-    int cont = 0;
+    uint8_t cont = 0;
     char character = 'Y';
     char player2_char = 'N';
     int rdy1 = 0;
@@ -92,8 +98,16 @@ int ready_screen(void)
 
         display_character(character);
     }
+    return 0;
 }
 
+void round_task (void)
+{
+    /* TODO - select P, S or R */
+
+    /*TODO - Communicate choice to other device and await response */
+
+}
 
 /** Displays the welcome message for the game, including instructions
     Then waits for a connection to a second player. */
@@ -105,18 +119,18 @@ void startup_task(void)
     tinygl_text_mode_set (TINYGL_TEXT_MODE_SCROLL);
     pacer_init(PACER_RATE);
     ir_uart_init ();
-
     startup_screen();
-    if (ready_screen()) {
-        /** Start game here i guess?
-            maybe we go to the game paced loop after this */
-    }
 }
 
 int main (void)
 {
     system_init();
     startup_task();
+
+    while (1) {
+        /* Paced loop here for game operation? */
+    }
+
     tinygl_clear();
     tinygl_update ();
 
