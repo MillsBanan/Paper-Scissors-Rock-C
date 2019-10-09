@@ -4,7 +4,7 @@
 #include "ir_uart.h"
 #include "tinygl.h"
 #include "../fonts/font5x7_1.h"
-
+#include "score.h"
 
 #define PACER_RATE 500
 #define MESSAGE_RATE 20
@@ -19,9 +19,10 @@ void display_character(char character)
     tinygl_text (buffer);
 }
 
-/* Helper functions for startup_task() */
+/** Helper functions for startup_task() */
 
-void startup_screen(void) //Displays game title and waits for player interaction
+/** Displays game title and awaits player interaction */
+void startup_screen(void)
 {
     int cont = 0;
 
@@ -40,7 +41,10 @@ void startup_screen(void) //Displays game title and waits for player interaction
     }
 }
 
-void ready_screen(void) //Displays player ready screen and waits for player2
+/** Displays the player ready check screen.
+  Transmits a Y or N over IR to the other player if ready or not, respectively.
+  Returns 1 if both players are ready. */
+int ready_screen(void)
 {
     int cont = 0;
     char character = 'Y';
@@ -83,7 +87,7 @@ void ready_screen(void) //Displays player ready screen and waits for player2
         }
 
         if (rdy1 && rdy2) {
-            cont = 1;
+            return 1;
         }
 
         display_character(character);
@@ -91,9 +95,8 @@ void ready_screen(void) //Displays player ready screen and waits for player2
 }
 
 
-/* Displays the welcome message for the game, including instructions
- * Then waits for a connection to a second player.
- */
+/** Displays the welcome message for the game, including instructions
+    Then waits for a connection to a second player. */
 void startup_task(void)
 {
     tinygl_init (PACER_RATE);
@@ -104,7 +107,10 @@ void startup_task(void)
     ir_uart_init ();
 
     startup_screen();
-    ready_screen();
+    if (ready_screen()) {
+        /** Start game here i guess?
+            maybe we go to the game paced loop after this */
+    }
 }
 
 int main (void)
