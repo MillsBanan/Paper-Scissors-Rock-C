@@ -32,18 +32,11 @@ void round_task(char* stage)
         char result = round_result(p1_sign, p2_sign);
         p1_sign = 0;
         p2_sign = 0;
+        index = 0;
         *stage = result;
     } else {
         display_character(signs[index]);
     }
-}
-
-void display_character(char character)
-{
-    char buffer[2];
-    buffer[0] = character;
-    buffer[1] = '\0';
-    tinygl_text(buffer);
 }
 
 /** Allows the player to select a sign using the navswitch
@@ -106,4 +99,12 @@ char round_result(char p1_sign, char p2_sign)
         result = 'L'; // Loss
     }
     return result;
+}
+
+void display_character(char character)
+{
+    char buffer[2];
+    buffer[0] = character;
+    buffer[1] = '\0';
+    tinygl_text(buffer);
 }
