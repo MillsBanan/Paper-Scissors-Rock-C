@@ -9,47 +9,62 @@
  #include "system.h"
  #include "pacer.h"
  #include "ir_uart.h"
- #include "mydisplay.h"
- #include "mytasks.h"
+ #include "tinygl.h"
+ #include "navswitch.h"
+ #include "../fonts/font5x7_1.h"
 
-#define PACER_RATE 500
+#define PACER_RATE 800
 #define MESSAGE_RATE 25
+
+void start_screen(void)
+{
+    tinygl_text("Paper Scissors Rock: First to 2");
+
+    while (1) {
+        pacer_wait();
+        tinygl_update();
+        navswitch_update();
+
+        if (navswitch_push_event_p(NAVSWITCH_PUSH)) {
+            break;
+        }
+    }
+}
+
+
+void startup_init(void)
+{
+    system_init();
+    ir_uart_init ();
+    pacer_init(PACER_RATE);
+    screen_init(PACER_RATE, MESSAGE_RATE);
+    tinygl_init (pacer_rate);
+    tinygl_font_set (&font5x7_1);
+    tinygl_text_speed_set (msg_rate);
+    tinygl_text_mode_set (TINYGL_TEXT_MODE_SCROLL);
+}
+
+void ready_task(char* stage)
+{
+
+}
 
 int main(void)
 {
-  system_init();
-  ir_uart_init ();
-  pacer_init(PACER_RATE);
-  screen_init(PACER_RATE, MESSAGE_RATE);
+    startup_init();
+    start_screen();
 
-  startup_task();
+    char stage = 'R';
 
-  int again = ready_task();
+    while (1) {
+        pacer_wait();
+        tinygl_update();
+        navswitch_update();
 
-  while (again) {
-    int p1_score = 0;
-    int p2_score = 0;
-
-    while (p1_score < 2 && p2_score < 2) {
-
-      int win = round_task();
-
-      if (win == 1) {
-        p1_score++;
-
-      } else if (win == 0) {
-        p2_score++;
-      }
+        switch (stage) {
+            case 'R' : // Ready check
+                ready_task(&stage);
+                break;
+        }
     }
-
-    if (p1_score == 2) {
-      final_msg_task(1);
-
-    } else {
-      final_msg_task(0);
-    }
-
-    again = ready_task();
-  }
-  clear();
 }
