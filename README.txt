@@ -1,4 +1,4 @@
-ENCE260 UCFK Assignment 2019S2
+ENCE260 UCFK Assignment 2019 S2
 
 
 Authors:  Evan Oijordsbakken, 86769703
@@ -6,7 +6,7 @@ Authors:  Evan Oijordsbakken, 86769703
 
 Title:    Paper Scissors Rock, First to Three
 
-Date:     14/10/19
+Date:     15/10/19
 
 
 ... Game Description ...
