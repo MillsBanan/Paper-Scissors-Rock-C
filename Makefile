@@ -1,7 +1,7 @@
-# File:   Makefile
-# Authors: Evan Oijordsbakken, Ryan Miller
-# Date:   14/10/19
-# Descr:  Makefile for game
+# File:			Makefile
+# Authors:	Evan Oijordsbakken, Ryan Miller
+# Date:   	15/10/19
+# Descr:   	Makefile for game
 
 # Definitions.
 CC = avr-gcc
