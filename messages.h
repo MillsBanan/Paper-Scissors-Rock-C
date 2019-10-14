@@ -14,6 +14,8 @@
 
 void display_character(char character);
 
-void display_message(char *message);
+void display_message_once(char *message, int timing_multiplier);
+
+void display_scores(char *scores);
 
 #endif
