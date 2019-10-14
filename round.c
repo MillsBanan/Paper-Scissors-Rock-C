@@ -5,14 +5,13 @@
 
 */
 
+
 #include "round.h"
 #include "system.h"
-#include "pacer.h"
-#include "tinygl.h"
 #include "ir_uart.h"
 #include "navswitch.h"
-#include "../fonts/font5x7_1.h"
 #include "messages.h"
+
 
 static const char g_signs[3] = {'P', 'S', 'R'}; // Valid signs
 static uint8_t g_index= 0; // Current position in signs array
@@ -78,8 +77,9 @@ static char round_result(char p1_sign, char p2_sign)
     return result;
 }
 
+
 /** Plays a round of paper scissors rock
-    @param &stage the current stage of the game.  */
+    @param char* stage the current stage of the game.  */
 void round_task(char* stage)
 {
     static char p1_sign = 0;

@@ -4,18 +4,22 @@
     @brief  Module for displaying messages on the LEDmatrix
 
 */
-#include <string.h>
+
+
 #include "messages.h"
 #include "system.h"
+#include "button.h"
+#include "navswitch.h"
 #include "pacer.h"
 #include "tinygl.h"
-#include "navswitch.h"
-#include "button.h"
 #include "../fonts/font5x7_1.h"
+#include <string.h>
+
 
 /** Used to calculate the number of pacer_wait calls to display a message once
     TIMING_MULTIPLIER = 10 * (PACER_RATE / MESSAGE_RATE) */
 #define TIMING_MULTIPLIER 800
+
 
 /** Displays the character given as a parameter
     @param char character any ASCII character. */
@@ -26,6 +30,7 @@ void display_character(char character)
     buffer[1] = '\0';
     tinygl_text(buffer);
 }
+
 
 /** Displays a message once, message can be skipped via a navswitch push
     @param char *message a message at most length 32 - note that the message
@@ -50,6 +55,7 @@ void display_message_once(char *message)
         }
     }
 }
+
 
 /** Displays the scores of both players while button 0 is held down
     @param char *scores a formatted string of both players scores. */

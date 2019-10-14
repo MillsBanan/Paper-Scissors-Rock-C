@@ -9,12 +9,14 @@
     choice.
 
 */
+
 #ifndef READY_H
 #define READY_H
 
 
+/** Allows each player to select whether or not they are ready,
+    @param char* stage the current stage of the game. */
 void ready_task(char* stage);
-
 
 
 #endif

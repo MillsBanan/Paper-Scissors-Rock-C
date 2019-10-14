@@ -4,21 +4,25 @@
     @brief  A simple paper scissors rock game for two players
 
 */
+
+
 #include <stdio.h>
 #include "system.h"
-#include "pacer.h"
 #include "ir_uart.h"
-#include "tinygl.h"
-#include "navswitch.h"
-#include "../fonts/font5x7_1.h"
-#include "round.h"
-#include "ready.h"
-#include "messages.h"
 #include "button.h"
+#include "navswitch.h"
+#include "pacer.h"
+#include "tinygl.h"
+#include "../fonts/font5x7_1.h"
+#include "messages.h"
+#include "ready.h"
+#include "round.h"
+
 
 #define PACER_RATE 2000
 #define MESSAGE_RATE 25
 #define MAX_SCORE 3
+
 
 /** Initialises all of the peripherals required for the game */
 void startup_init(void)
@@ -33,14 +37,17 @@ void startup_init(void)
     tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL);
 }
 
+
 /** Displays the startup messages to the player */
 void start_screen(void)
 {
-    display_message_once("Paper Scissors Rock:   ");
+    display_message_once(" Paper Scissors Rock:     ");
     display_message_once(" First to 3!    ");
     display_message_once(" Ready?  ");
 }
 
+
+/** Plays the game **/
 void game_task(void)
 {
     char stage = 'R';
@@ -109,10 +116,12 @@ void game_task(void)
     }
 }
 
+
 int main(void)
 {
     startup_init();
     start_screen();
+
     game_task();
 
     display_message_once(" Bye!  ");

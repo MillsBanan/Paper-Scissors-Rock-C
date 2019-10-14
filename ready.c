@@ -5,13 +5,12 @@
 
 */
 
+
 #include "ready.h"
 #include "system.h"
 #include "ir_uart.h"
-#include "tinygl.h"
 #include "navswitch.h"
 #include "messages.h"
-
 
 
 /** Changes the current selection of the player
@@ -27,8 +26,9 @@ static void change_selection(char* p1_ready)
     }
 }
 
+
 /** Allows each player to select whether or not they are ready,
-    */
+    @param char* stage the current stage of the game. */
 void ready_task(char* stage)
 {
     static char p1_ready = 'Y';
