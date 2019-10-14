@@ -1,7 +1,7 @@
-/** @file round.c
-    @authors Evan Oijordsbakken, Ryan Miller
-    @date   15 October 2019
-    @brief Handles the playing of each round
+/** @file     round.c
+    @authors  Evan Oijordsbakken, Ryan Miller
+    @date     15 October 2019
+    @brief    Handles the playing of each round
 
 */
 
