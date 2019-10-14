@@ -21,11 +21,11 @@ one of them has won three games.
 
 The navswitch and button on the UCFK are what the player needs to
 control their actions in this game. The progress of the game will be
-displayed on the LED screen.
+displayed on the LED matrix.
 
 Navswitch Left/Right    -->     Scroll through actions on game display
 Navswitch Push          -->     Select option / Skip messages
-Button Hold             -->     Display scores
+Button Hold             -->     Display scores (not when messages are playing)
 
 
 ... Game Stages ...

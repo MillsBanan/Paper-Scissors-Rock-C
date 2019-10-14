@@ -1,7 +1,7 @@
 /** @file messages.h
     @authors Evan Oijordsbakken, Ryan Miller
     @date   15 October 2019
-    @brief  Module for displaying messages on the LEDmatrix
+    @brief  Module for displaying messages on the LED matrix
 
 */
 

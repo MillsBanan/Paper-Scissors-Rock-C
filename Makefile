@@ -1,4 +1,4 @@
-# File:			Makefile
+# File:		Makefile
 # Authors:	Evan Oijordsbakken, Ryan Miller
 # Date:   	15/10/19
 # Descr:   	Makefile for game
