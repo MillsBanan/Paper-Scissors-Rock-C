@@ -27,6 +27,7 @@
 void display_character(char character)
 {
     char buffer[2];
+
     buffer[0] = character;
     buffer[1] = '\0';
     tinygl_text(buffer);
@@ -39,17 +40,17 @@ void display_character(char character)
     to display properly.   */
 void display_message_once(char *message)
 {
+    uint16_t loop_count = 0;
+    uint16_t max_loop_count = strlen(message) * TIMING_MULTIPLIER;
+
     tinygl_text(message);
 
-    uint16_t count = 0;
-    uint16_t max_count = strlen(message) * TIMING_MULTIPLIER;
-
-    while (count < max_count) {
+    while (loop_count < max_loop_count) {
         pacer_wait();
         tinygl_update();
         navswitch_update();
 
-        count++;
+        loop_count++;
 
         if (navswitch_push_event_p(NAVSWITCH_PUSH)) {
             navswitch_update();

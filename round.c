@@ -21,7 +21,6 @@ static uint8_t g_index= 0; // Current position in signs array
     @param p1_sign pointer to variable that holds the sign selected by the player.  */
 static void sign_select(char* p1_sign)
 {
-
     if (navswitch_push_event_p(NAVSWITCH_EAST)) {
         if (g_index== 2) {
             g_index= 0;
@@ -48,6 +47,7 @@ static void sign_recieve(char* p2_sign)
 {
     if (ir_uart_read_ready_p()) {
         char temp = ir_uart_getc();
+
         if (temp == 'R' || temp == 'S' || temp == 'P') {
             *p2_sign = temp;
         }
@@ -94,6 +94,7 @@ void round_task(char* stage)
     }
     if (p1_sign != 0 && p2_sign != 0) {
         char result = round_result(p1_sign, p2_sign);
+        
         p1_sign = 0;
         p2_sign = 0;
         g_index= 0;

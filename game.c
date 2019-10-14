@@ -86,29 +86,31 @@ void game_task(void)
         case 'W': // Round was won
             display_message_once(" ...  Round won!   ");
             p1_score++;
+
             if (p1_score == MAX_SCORE) {
                 stage = 'Q';
             } else {
-                stage = 'R';
                 display_message_once(" Ready?  ");
+                stage = 'R';
             }
             break;
 
         case 'L': // Round was lost
             display_message_once(" ...  Round lost!   ");
             p2_score++;
+
             if (p2_score == MAX_SCORE) {
                 stage = 'Q';
             } else {
-                stage = 'R';
                 display_message_once(" Ready?  ");
+                stage = 'R';
             }
             break;
 
         case 'D': // Round was a draw
             display_message_once(" ...  Draw!  ");
-            stage = 'R';
             display_message_once(" Ready?  ");
+            stage = 'R';
             break;
 
         default:
@@ -131,7 +133,7 @@ int main(void)
 
     game_task();
 
-    display_message_once(" Thanks for coming to my ted talk  ");
+    display_message_once(" Thanks for playing!  ");
     tinygl_clear();
     tinygl_update();
 }
