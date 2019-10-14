@@ -13,9 +13,9 @@
 #include "button.h"
 #include "../fonts/font5x7_1.h"
 
-/** Used to calculate the number of pacer_wait calls to display a message
+/** Used to calculate the number of pacer_wait calls to display a message once
     TIMING_MULTIPLIER = 10 * (PACER_RATE / MESSAGE_RATE) */
-#define TIMING_MULTIPLIER 8000
+#define TIMING_MULTIPLIER 800
 
 /** Displays the character given as a parameter
     @param char character any ASCII character. */
@@ -62,4 +62,5 @@ void display_scores(char *scores)
         tinygl_update();
         button_update();
     }
+    navswitch_update();
 }

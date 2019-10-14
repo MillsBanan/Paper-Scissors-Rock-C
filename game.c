@@ -36,17 +36,13 @@ void startup_init(void)
 /** Displays the startup messages to the player */
 void start_screen(void)
 {
-    display_message_once("Paper Scissors Rock:    ");
+    display_message_once("Paper Scissors Rock:   ");
     display_message_once(" First to 3!    ");
     display_message_once(" Ready?  ");
 }
 
-
-int main(void)
+void game_task(void)
 {
-    startup_init();
-    start_screen();
-
     char stage = 'R';
     uint8_t p1_score = 0;
     uint8_t p2_score = 0;
@@ -62,6 +58,7 @@ int main(void)
             sprintf(buffer, "  Scores.. P1:%d P2:%d", p1_score, p2_score);
             display_scores(buffer);
         }
+
         if (stage == 'Q') { // Quit the game
             break;
         }
@@ -76,7 +73,7 @@ int main(void)
                 break;
 
             case 'W' : // Round was won
-                display_message_once(" ... Round won!   ");
+                display_message_once(" ...  Round won!   ");
                 p1_score++;
                 if (p1_score == MAX_SCORE) {
                     stage = 'Q';
@@ -87,7 +84,7 @@ int main(void)
                 break;
 
             case 'L' : // Round was lost
-                display_message_once(" ... Round lost!   ");
+                display_message_once(" ...  Round lost!   ");
                 p2_score++;
                 if (p2_score == MAX_SCORE) {
                     stage = 'Q';
@@ -98,7 +95,7 @@ int main(void)
                 break;
 
             case 'D' : // Round was a draw
-                display_message_once(" ... Draw!  ");
+                display_message_once(" ...  Draw!  ");
                 stage = 'R';
                 display_message_once(" Ready?  ");
                 break;
@@ -110,8 +107,15 @@ int main(void)
     } else {
         display_message_once(" You lost the game!   ");
     }
+}
 
-    display_message_once(" Chur  ");
+int main(void)
+{
+    startup_init();
+    start_screen();
+    game_task();
+
+    display_message_once(" Bye!  ");
     tinygl_clear();
     tinygl_update();
 }

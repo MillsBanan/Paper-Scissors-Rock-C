@@ -13,6 +13,22 @@
 #include "messages.h"
 
 
+
+/** Changes the current selection of the player
+    @param char* p1_ready variable to hold the choice of the player. */
+static void change_selection(char* p1_ready)
+{
+    if (navswitch_push_event_p(NAVSWITCH_EAST) || navswitch_push_event_p(NAVSWITCH_WEST)) {
+        if (*p1_ready == 'Y') {
+            *p1_ready = 'N';
+        } else {
+            *p1_ready = 'Y';
+        }
+    }
+}
+
+/** Allows each player to select whether or not they are ready,
+    */
 void ready_task(char* stage)
 {
     static char p1_ready = 'Y';
@@ -37,16 +53,5 @@ void ready_task(char* stage)
         p2_ready = 'N';
         sent_Y = 0;
         *stage = 'P';
-    }
-}
-
-void change_selection(char* p1_ready)
-{
-    if (navswitch_push_event_p(NAVSWITCH_EAST) || navswitch_push_event_p(NAVSWITCH_WEST)) {
-        if (*p1_ready == 'Y') {
-            *p1_ready = 'N';
-        } else {
-            *p1_ready = 'Y';
-        }
     }
 }

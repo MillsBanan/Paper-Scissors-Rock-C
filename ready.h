@@ -13,10 +13,8 @@
 #define READY_H
 
 
-
 void ready_task(char* stage);
 
-void change_selection(char* p1_ready);
 
 
 #endif
