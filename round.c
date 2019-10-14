@@ -1,7 +1,7 @@
 /** @file round.c
     @authors Evan Oijordsbakken, Ryan Miller
     @date   10 October 2019
-    @brief Handles each round
+    @brief Handles the playing of each round
 
 */
 
@@ -14,17 +14,19 @@
 #include "../fonts/font5x7_1.h"
 #include "messages.h"
 
-
+/** Valid signs: P = paper, R = rock, and S = Scissors. */
 const char signs[3] = {'P', 'S', 'R'};
-static int index = 0;
 
+/** Plays a round of paper scissors rock
+    @param &stage the current stage of the game.  */
 void round_task(char* stage)
 {
     static char p1_sign = 0;
     static char p2_sign = 0;
+    static uint8_t index = 0;
 
     if (p1_sign == 0) {
-        sign_select(&p1_sign);
+        sign_select(&p1_sign, &index);
     }
     if (p2_sign == 0) {
         sign_recieve(&p2_sign);
@@ -42,25 +44,25 @@ void round_task(char* stage)
 
 /** Allows the player to select a sign using the navswitch
     @param p1_sign variable to hold the sign selected by the player.  */
-void sign_select(char* p1_sign)
+void sign_select(char* p1_sign, uint8_t &index)
 {
 
     if (navswitch_push_event_p(NAVSWITCH_EAST)) {
-        if (index == 2) {
-            index = 0;
+        if (*index == 2) {
+            *index = 0;
         } else {
-            index++;
+            *index++;
         }
     } else if (navswitch_push_event_p(NAVSWITCH_WEST)) {
-        if (index == 0) {
-            index = 2;
+        if (*index == 0) {
+            *index = 2;
         } else {
-            index--;
+            *index--;
         }
     }
     if (navswitch_push_event_p(NAVSWITCH_PUSH)) {
-        ir_uart_putc(signs[index]);
-        *p1_sign = signs[index];
+        ir_uart_putc(signs[*index]);
+        *p1_sign = signs[*index];
     }
 }
 

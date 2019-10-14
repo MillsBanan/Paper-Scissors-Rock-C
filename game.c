@@ -1,9 +1,8 @@
 /** @file   game.c
     @authors Evan Oijordsbakken, Ryan Miller
-    @date   09 October 2019
+    @date   14 October 2019
+    @brief  A simple paper scissors rock game for two players
 
-    This file runs the main program of the PSR game
-    for the UCFK for Assignment
 */
 #include <stdio.h>
 #include "system.h"
@@ -21,6 +20,7 @@
 #define MESSAGE_RATE 25
 #define MAX_SCORE 3
 
+/** Initialises all of the peripherals required for the game */
 void startup_init(void)
 {
     system_init();
@@ -33,18 +33,23 @@ void startup_init(void)
     tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL);
 }
 
+/** Displays the startup messages to the player */
+void start_screen(void)
+{
+    display_message_once("Paper Scissors Rock:    ");
+    display_message_once(" First to 3!    ");
+    display_message_once(" Ready?  ");
+}
+
+
 int main(void)
 {
     startup_init();
+    start_screen();
 
-    uint16_t timing_multiplier = 10 * (PACER_RATE / MESSAGE_RATE);
     char stage = 'R';
     uint8_t p1_score = 0;
     uint8_t p2_score = 0;
-
-    display_message_once("Paper Scissors Rock:    ", timing_multiplier);
-    display_message_once(" First to 3!    ", timing_multiplier);
-    display_message_once(" Ready?  ", timing_multiplier);
 
     while (1) {
         pacer_wait();
@@ -62,7 +67,7 @@ int main(void)
         }
 
         switch (stage) {
-            case 'P' :
+            case 'P' : // Play a round
                 round_task(&stage);
                 break;
 
@@ -71,40 +76,42 @@ int main(void)
                 break;
 
             case 'W' : // Round was won
-                display_message_once(" ... Round won!   ", timing_multiplier);
+                display_message_once(" ... Round won!   ");
                 p1_score++;
                 if (p1_score == MAX_SCORE) {
                     stage = 'Q';
                 } else {
                     stage = 'R';
-                    display_message_once(" Ready?  ", timing_multiplier);
+                    display_message_once(" Ready?  ");
                 }
                 break;
 
             case 'L' : // Round was lost
-                display_message_once(" ... Round lost!   ", timing_multiplier);
+                display_message_once(" ... Round lost!   ");
                 p2_score++;
                 if (p2_score == MAX_SCORE) {
                     stage = 'Q';
                 } else {
                     stage = 'R';
-                    display_message_once(" Ready?  ", timing_multiplier);
+                    display_message_once(" Ready?  ");
                 }
                 break;
 
             case 'D' : // Round was a draw
-                display_message_once(" ... Draw!  ", timing_multiplier);
+                display_message_once(" ... Draw!  ");
                 stage = 'R';
-                display_message_once(" Ready?  ", timing_multiplier);
+                display_message_once(" Ready?  ");
                 break;
         }
     }
+
     if (p1_score > p2_score) {
-        display_message_once(" You won the game!   ", timing_multiplier);
+        display_message_once(" You won the game!   ");
     } else {
-        display_message_once(" You lost the game!   ", timing_multiplier);
+        display_message_once(" You lost the game!   ");
     }
-    display_message_once(" Chur  ", timing_multiplier);
+
+    display_message_once(" Chur  ");
     tinygl_clear();
     tinygl_update();
 }
