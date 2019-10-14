@@ -1,6 +1,6 @@
 /** @file round.c
     @authors Evan Oijordsbakken, Ryan Miller
-    @date   10 October 2019
+    @date   15 October 2019
     @brief Handles the playing of each round
 
 */
@@ -18,7 +18,7 @@ static uint8_t g_index= 0; // Current position in signs array
 
 
 /** Allows the player to select a sign using the navswitch
-    @param p1_sign variable to hold the sign selected by the player.  */
+    @param p1_sign pointer to variable that holds the sign selected by the player.  */
 static void sign_select(char* p1_sign)
 {
 
@@ -43,7 +43,7 @@ static void sign_select(char* p1_sign)
 
 
 /** Polls the IR reciever, assigns the recieved sign to p2_sign if valid
-    @param p2_sign variable to hold the recieved sign from the other player.  */
+    @param p2_sign pointer to variable that holds the recieved sign from the other player.  */
 static void sign_recieve(char* p2_sign)
 {
     if (ir_uart_read_ready_p()) {
@@ -78,8 +78,9 @@ static char round_result(char p1_sign, char p2_sign)
 }
 
 
-/** Plays a round of paper scissors rock
-    @param char* stage the current stage of the game.  */
+/** Plays a round of paper scissors rock, changes the state of the game to the
+    respective outcome of the round for each player - ('W', 'L', 'D').
+    @param char* stage pointer to variable that holds the current stage of the game.  */
 void round_task(char* stage)
 {
     static char p1_sign = 0;

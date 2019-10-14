@@ -1,6 +1,6 @@
 /** @file messages.h
     @authors Evan Oijordsbakken, Ryan Miller
-    @date   14 October 2019
+    @date   15 October 2019
     @brief  Module for displaying messages on the LEDmatrix
 
 */
@@ -16,7 +16,8 @@
 #include <string.h>
 
 
-/** Used to calculate the number of pacer_wait calls to display a message once
+/** Used to calculate the number of pacer_wait calls needed
+    to display a message only once
     TIMING_MULTIPLIER = 10 * (PACER_RATE / MESSAGE_RATE) */
 #define TIMING_MULTIPLIER 800
 
@@ -33,8 +34,9 @@ void display_character(char character)
 
 
 /** Displays a message once, message can be skipped via a navswitch push
-    @param char *message a message at most length 32 - note that the message
-    usually requires some padding with whitespace on the end. */
+    @param char *message text at most length 32 including null terminator
+    - note that the text requires variable levels of padding with whitespace
+    to display properly.   */
 void display_message_once(char *message)
 {
     tinygl_text(message);
@@ -58,7 +60,7 @@ void display_message_once(char *message)
 
 
 /** Displays the scores of both players while button 0 is held down
-    @param char *scores a formatted string of both players scores. */
+    @param char *scores variable to hold a formatted string of both players scores. */
 void display_scores(char *scores)
 {
     tinygl_text(scores);

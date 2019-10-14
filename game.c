@@ -1,6 +1,6 @@
 /** @file   game.c
     @authors Evan Oijordsbakken, Ryan Miller
-    @date   14 October 2019
+    @date   15 October 2019
     @brief  A simple paper scissors rock game for two players
 
 */
@@ -42,12 +42,16 @@ void startup_init(void)
 void start_screen(void)
 {
     display_message_once(" Paper Scissors Rock:     ");
-    display_message_once(" First to 3!    ");
+
+    char buffer[17]; // 17 is length of string below + 1 for null terminator
+    sprintf(buffer, " First to %d!    ", MAX_SCORE);
+    display_message_once(buffer);
+
     display_message_once(" Ready?  ");
 }
 
 
-/** Plays the game **/
+/** Plays the game */
 void game_task(void)
 {
     char stage = 'R';
@@ -61,7 +65,7 @@ void game_task(void)
         button_update();
 
         if (button_down_p(0)) {
-            char buffer[21];
+            char buffer[21]; // 21 is len of string below + 1 for null terminator
             sprintf(buffer, "  Scores.. P1:%d P2:%d", p1_score, p2_score);
             display_scores(buffer);
         }
@@ -71,41 +75,44 @@ void game_task(void)
         }
 
         switch (stage) {
-            case 'P' : // Play a round
-                round_task(&stage);
-                break;
+        case 'P': // Play a round
+            round_task(&stage);
+            break;
 
-            case 'R' : // Ready check
-                ready_task(&stage);
-                break;
+        case 'R': // Ready check
+            ready_task(&stage);
+            break;
 
-            case 'W' : // Round was won
-                display_message_once(" ...  Round won!   ");
-                p1_score++;
-                if (p1_score == MAX_SCORE) {
-                    stage = 'Q';
-                } else {
-                    stage = 'R';
-                    display_message_once(" Ready?  ");
-                }
-                break;
-
-            case 'L' : // Round was lost
-                display_message_once(" ...  Round lost!   ");
-                p2_score++;
-                if (p2_score == MAX_SCORE) {
-                    stage = 'Q';
-                } else {
-                    stage = 'R';
-                    display_message_once(" Ready?  ");
-                }
-                break;
-
-            case 'D' : // Round was a draw
-                display_message_once(" ...  Draw!  ");
+        case 'W': // Round was won
+            display_message_once(" ...  Round won!   ");
+            p1_score++;
+            if (p1_score == MAX_SCORE) {
+                stage = 'Q';
+            } else {
                 stage = 'R';
                 display_message_once(" Ready?  ");
-                break;
+            }
+            break;
+
+        case 'L': // Round was lost
+            display_message_once(" ...  Round lost!   ");
+            p2_score++;
+            if (p2_score == MAX_SCORE) {
+                stage = 'Q';
+            } else {
+                stage = 'R';
+                display_message_once(" Ready?  ");
+            }
+            break;
+
+        case 'D': // Round was a draw
+            display_message_once(" ...  Draw!  ");
+            stage = 'R';
+            display_message_once(" Ready?  ");
+            break;
+
+        default:
+            break;
         }
     }
 
@@ -124,7 +131,7 @@ int main(void)
 
     game_task();
 
-    display_message_once(" Bye!  ");
+    display_message_once(" Thanks for coming to my ted talk  ");
     tinygl_clear();
     tinygl_update();
 }
