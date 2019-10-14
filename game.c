@@ -133,7 +133,7 @@ int main(void)
 
     game_task();
 
-    display_message_once(" Thanks for playing!  ");
+    display_message_once(" Thanks for playing!    ");
     tinygl_clear();
     tinygl_update();
 }
