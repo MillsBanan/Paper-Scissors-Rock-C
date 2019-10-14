@@ -12,6 +12,7 @@
 #include "ir_uart.h"
 #include "navswitch.h"
 #include "../fonts/font5x7_1.h"
+#include "messages.h"
 
 
 const char signs[3] = {'P', 'S', 'R'};
@@ -99,12 +100,4 @@ char round_result(char p1_sign, char p2_sign)
         result = 'L'; // Loss
     }
     return result;
-}
-
-void display_character(char character)
-{
-    char buffer[2];
-    buffer[0] = character;
-    buffer[1] = '\0';
-    tinygl_text(buffer);
 }

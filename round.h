@@ -9,10 +9,6 @@
 #ifndef ROUND_H
 #define ROUND_H
 
-/** Valid signs: P = paper, S = scissors, R = rock.  */
-
-
-void display_character(char character);
 
 /** Allows the player to select a sign using the navswitch
     @param p1_sign variable to hold the sign selected by the player.  */
