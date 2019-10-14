@@ -1,7 +1,7 @@
-/** @file round.h
-    @authors Evan Oijordsbakken, Ryan Miller
-    @date   15 October 2019
-    @brief Handles each round
+/** @file     round.h
+    @authors  Evan Oijordsbakken, Ryan Miller
+    @date     15 October 2019
+    @brief    Handles each round
 
     This module implements sign selection, sign transmitting/ recieving and
     the playing of each round.

@@ -1,7 +1,7 @@
-/** @file round.h
-    @authors Evan Oijordsbakken, Ryan Miller
-    @date   15 October 2019
-    @brief  Ready check
+/** @file     round.h
+    @authors  Evan Oijordsbakken, Ryan Miller
+    @date     15 October 2019
+    @brief    Ready check
 
     This module implements the selection and transmission of a yes or no choice,
     and the recieving of the other players choice.

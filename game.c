@@ -1,7 +1,7 @@
-/** @file   game.c
-    @authors Evan Oijordsbakken, Ryan Miller
-    @date   15 October 2019
-    @brief  A simple paper scissors rock game for two players
+/** @file     game.c
+    @authors  Evan Oijordsbakken, Ryan Miller
+    @date     15 October 2019
+    @brief    A simple paper scissors rock game for two players
 
 */
 
